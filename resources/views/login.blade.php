@@ -34,7 +34,7 @@
     <!-- Login Form -->
     <form action="{{url('/process_login')}}" method="POST" id="logForm">
         @csrf
-      <input type="text" id="password" name="password"class="fadeIn third" name="login" placeholder="password">
+      <input type="password" id="password" name="password"class="fadeIn third" name="login" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
@@ -160,7 +160,7 @@
       transform: scale(0.95);
     }
 
-    input[type=text] {
+    input[type=password] {
       background-color: #f6f6f6;
       border: none;
       color: #0d0d0d;
