@@ -14,9 +14,8 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('Welcome');
-});
+
+Route::get('/', [AuthController::class, 'dashboard']);
 
 // Route::get('home', [AuthController::class, 'dashboard'])->name('home');
 

@@ -50,10 +50,11 @@
                     <option value="{{ $filename }}">{{ $js_file }}</option>
                     @endforeach
                 </select>
-                <button type="submit" id="load" name="save_button">Load</button>
+
+                <button type="submit" id="load" name="save_button" class="btn btn-primary" >Load</button>
 
                 <textarea id="js-code" cols="100" rows="10" name="file_content"></textarea>
-                <button type="submit" id="save" name="save_button">Save</button>
+                <button type="submit" id="save" name="save_button" class="btn btn-info">Save</button>
                 </form>
 
 
