@@ -17,20 +17,12 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', [AuthController::class, 'dashboard']);
 
-// Route::get('home', [AuthController::class, 'dashboard'])->name('home');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
- Route::get('/js/{filename}', function($filename) {
-     return \File::get(public_path($filename));
- });
  Route::post('/save', 'App\Http\Controllers\HomeController@save');
 
  Route::get('login', [AuthController::class, 'index']);
  Route::Post('/process_login', [AuthController::class, 'process_login']);
  Route::get('/home', [AuthController::class, 'dashboard']);
  Route::get('/logout', [AuthController::class, 'logout']);
- Route::post('/save', [AuthController::class, 'save']);
+ Route::post('/save-file', [AuthController::class, 'saveFile'])->name('save-file');
+ Route::get('/load-file', [AuthController::class, 'loadFile'])->name('load-file');
 

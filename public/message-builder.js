@@ -1,9 +1,5 @@
-//New Line
-var mbversion = "1.7 (9-12-2022)";
-var lb = "\n";
-var lb2 = "\n\n";
-var trip_type;
-var show_destination_section = true;
+hello
+
 
 $(document).ready(function () {
 

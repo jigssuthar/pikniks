@@ -23,7 +23,7 @@ class AuthController extends Controller
               session(['password' =>  $req->password]);
                return redirect('/home');
         }else{
-            session()->flash('message','your password is wrong');
+            session()->flash('message','Your password is wrong!');
             return redirect('login');
         }
     }
@@ -31,8 +31,13 @@ class AuthController extends Controller
     {
         if(!empty($req->session()->get('password'))){
             $public_dir = public_path();
-            $js_files = glob($public_dir . '\*.js');
-
+            $js_files = glob($public_dir . '/*.js');
+            $updatedJsFiles = [];
+            foreach ($js_files as $js_file){
+                array_push($updatedJsFiles,str_replace($public_dir.'/', '', $js_file));
+            }
+            $js_files = $updatedJsFiles;
+            session()->flash('messages','Welcome to home page');
             return view('/home',compact('js_files','public_dir'));
         }else{
           return redirect('login');
@@ -41,18 +46,37 @@ class AuthController extends Controller
     public function logout(Request $req)
     {
         $req->session()->forget('password');
-        $req->session()->flash('message','You have succesfully Logout');
+        $req->session()->flash('messages','You have successfully Logout');
         return redirect('login');
     }
-    public function save(Request $request)
+    public function saveFile(Request $request)
     {
-        if ($request->has('save_button')) {
-            $new_content = $request->input('file_content');
-            $filepath=public_path().$request->filename;
-            File::put($filepath, $new_content);
-            return back();
+        $new_content = $request->input('file_content');
+        $filepath=public_path().'/'.$request->filename;
+        if(!File::exists($filepath)){
+            return response()->json([
+                'success' => false,
+            ]);
         }
+        File::put($filepath, $new_content);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
+    public function loadFile(Request $request)
+    {
+        $filepath=public_path().'/'.$request->file_name;
+        if(!File::exists($filepath)){
+            return response()->json([
+                'success' => false,
+            ]);
+        }
+        $fileData = \File::get($filepath);
+        return response()->json([
+            'success' => true,
+            'data' => $fileData,
+        ]);
+    }
 
 }

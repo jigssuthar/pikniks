@@ -19,22 +19,28 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">
+    @if(Session::get('messages'))
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Sucess :</strong>  {{Session::get('messages')}}
+      </div>
+      @endif
   <div id="formContent">
-    <!-- Tabs Titles -->
 
+    <!-- Tabs Titles -->
     <!-- Icon -->
     <div class="fadeIn first">
         <h2><b>Login Here</b></h2>
     </div>
-    @if(Session::get('message'))
-    <div class="error alert-error">
-   {{Session::get('message')}}
-    </div>
-    @endif
     <!-- Login Form -->
     <form action="{{url('/process_login')}}" method="POST" id="logForm">
         @csrf
-      <input type="password" id="password" name="password"class="fadeIn third" name="login" placeholder="password">
+        <input type="password" id="password" name="password"class="fadeIn third" name="login" placeholder="Enter password" required>
+        @if(Session::get('message'))
+        <div class="error alert-error">
+       {{Session::get('message')}}
+        </div>
+        @endif
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
@@ -75,7 +81,24 @@
 
 
     /* STRUCTURE */
-
+    .alert {
+        padding: 15px;
+        background-color: green;
+        color: white;
+    }
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .closebtn:hover {
+        color: black;
+    }
     .wrapper {
       display: flex;
       align-items: center;
@@ -84,6 +107,9 @@
       width: 100%;
       min-height: 100%;
       padding: 20px;
+    }
+    .error {
+        color: red;
     }
 
     #formContent {

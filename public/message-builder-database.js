@@ -1,19 +1,4 @@
-var dbversion = var drivers = [];
-var guides = [];
-var places = [];
-var schedule = [];
-var destination_places = [];
-
-
-var paymentToDriver = "Please give the remaining amount to driver. You can pay through google pay, phonepe, paytm or cash";
-var outsideVehicle = "Car or any Vehicle is not allowed inside statue of unity premises. We will drop you at parking area. From there, you have to go inside all places vis their Buses (FREE). For smoother journey you can hire E-Rickshaw(Paid) or E-Car to roam inside (Paid)";
-var noLaserShow = "You can see laser show from this location (https://goo.gl/maps/tZok6XnVmGNmdPWv9). For hearing it properly, run this video parallel to get nice audio https://www.youtube.com/watch?v=xdbibPGAEn0";
-
-
-function getThingsToCarry(p_carry_obj) {
-    var winter = "- Sunglasses, Woolen wear" + lb;
-    var summer = "- Cap, Sunglasses, Sunscream, Napkin" + lb;
-    var monsoon = "- Umbrella, Raincoat, Plastic bag to keep Mobile/ Wallet" + lb;
+var monsoon = "- Umbrella, Raincoat, Plastic bag to keep Mobile/ Wallet" + lb;
     var trekking = "- Shoes" + lb;
     var swimming = "- Costume/Swimming clothes, Personal Toilettoires" + lb;
     var common_swimming_monsoon = "- 1 Pair extra clothes, Plastic bags for wet clothes" + lb;
