@@ -1,16 +1,9 @@
-hello
-
-
 $(document).ready(function () {
-
   updateThingsToCarry();
-
   //Driver - Call DATABASE.js
   addDriverDatabase();
-
   //Guide - Call DAATABASE.js
   addGuideDatabase();
-
   //Add Place and Packages - Call DATABASE.js
   addPlaceDatabase();
 

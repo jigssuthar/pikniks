@@ -9,9 +9,10 @@
                     @csrf
                     <select id="js-file-select" name="filename" data-url="{{route('load-file')}}" >
                         <option value="">--- Select file ---</option>
-                        @foreach ($js_files as $js_file)
+                        @foreach ($js_files as $js_file )
                             <option value="{{ $js_file }}">{{ $js_file }}</option>
                         @endforeach
+                        <option id="" value="{{ $xmlfile }}">{{$xmlfile}}</option>
                     </select>
                     <button type="button" onclick="loadFile()" id="load" name="load_button" class="btn btn-primary" >Load</button>
                     <textarea id="js-code" cols="80" rows="15" id="file_content" name="file_content">{{@$updatedContent}}</textarea>
@@ -42,6 +43,7 @@
     {
         if($('#js-file-select').val() != ''){
             var formData = $('#updateForm').serialize();
+            var file = $('#js-file-select').val();
             $.ajax({
                 url: $('#updateForm').data('action'),
                 data: formData,
@@ -50,6 +52,9 @@
                 success: function (result) {
                     if(result.success){
                         alert('File Saved');
+                        if (file == 'master.xml' ) {
+                            window.location.reload(true);
+                        }
                     }else{
                         alert('File not saved!');
                     }
@@ -58,6 +63,11 @@
         }else{
             alert('Select File!');
         }
+
+
     }
+
+
+
 </script>
 @endsection

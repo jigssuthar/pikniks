@@ -31,14 +31,25 @@ class AuthController extends Controller
     {
         if(!empty($req->session()->get('password'))){
             $public_dir = public_path();
-            $js_files = glob($public_dir . '/*.js');
+            $js_files = glob($public_dir . '/*.js',);
+            $xmlString = file_get_contents(public_path('master.xml'));
+            $xmlObject = simplexml_load_string($xmlString);
+            $json = json_encode($xmlObject);
+            $phpArray = json_decode($json, true);
             $updatedJsFiles = [];
-            foreach ($js_files as $js_file){
-                array_push($updatedJsFiles,str_replace($public_dir.'/', '', $js_file));
+            foreach($phpArray as $files){
+                foreach($files as $file){
+                    array_push($updatedJsFiles, basename($file));
+                }
             }
+            $xmlfile = basename(public_path('master.xml'));
+            // foreach ($js_files as $js_file){
+            //     array_push($updatedJsFiles,str_replace($public_dir.'/', '', $js_file));
+            // }
+
             $js_files = $updatedJsFiles;
             session()->flash('messages','Welcome to home page');
-            return view('/home',compact('js_files','public_dir'));
+            return view('/home',compact('js_files','public_dir','xmlfile'));
         }else{
           return redirect('login');
         }
@@ -67,7 +78,8 @@ class AuthController extends Controller
     public function loadFile(Request $request)
     {
         $filepath=public_path().'/'.$request->file_name;
-        if(!File::exists($filepath)){
+        $filepaths= public_path('master.xml');
+        if(!File::exists($filepath, $filepaths)){
             return response()->json([
                 'success' => false,
             ]);

@@ -25,11 +25,10 @@ class HomeController extends Controller
     {
         $public_dir = public_path();
         $js_files = glob($public_dir . '\*.js');
-
         return view('home',compact('js_files','public_dir'));
     }
-    public function save(Request $request){
-
+    public function save(Request $request)
+    {
         if ($request->has('save_button')) {
         $new_content = $request->input('file_content');
         $filepath=public_path().$request->filename;
