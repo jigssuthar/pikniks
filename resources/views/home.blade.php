@@ -44,6 +44,7 @@
         if($('#js-file-select').val() != ''){
             var formData = $('#updateForm').serialize();
             var file = $('#js-file-select').val();
+            var xml = 'master.xml';
             $.ajax({
                 url: $('#updateForm').data('action'),
                 data: formData,
@@ -52,7 +53,8 @@
                 success: function (result) {
                     if(result.success){
                         alert('File Saved');
-                        if (file == 'master.xml' ) {
+
+                        if (file == xml ) {
                             window.location.reload(true);
                         }
                     }else{
@@ -70,4 +72,6 @@
 
 
 </script>
+
+
 @endsection
