@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator,Redirect,Response;
+
 use Illuminate\Http\Request;
 Use App\Models\User;
 use Session;
-use File;
+use Illuminate\Support\Facades\File;
+
 class AuthController extends Controller
 {
 
@@ -30,12 +32,14 @@ class AuthController extends Controller
     public function dashboard(Request $req)
     {
         if(!empty($req->session()->get('password'))){
-            $public_dir = public_path();
-            $js_files = glob($public_dir . '/*.js',);
-            $xmlString = file_get_contents(public_path('master.xml'));
+            $public_dir = dirname(base_path()).'\file-saver';
+            $js_files = glob($public_dir . '\*.xml',);
+            //dd($js_files[0]);
+            $xmlString = file_get_contents($js_files[0]);
             $xmlObject = simplexml_load_string($xmlString);
             $json = json_encode($xmlObject);
             $phpArray = json_decode($json, true);
+           // dd($phpArray);
             $updatedJsFiles = [];
             foreach($phpArray as $files){
                 foreach($files as $file){
@@ -44,10 +48,11 @@ class AuthController extends Controller
             }
             $xmlfile = basename(public_path('master.xml'));
             // foreach ($js_files as $js_file){
-            //     array_push($updatedJsFiles,str_replace($public_dir.'/', '', $js_file));
-            // }
+                //     array_push($updatedJsFiles,str_replace($public_dir.'/', '', $js_file));
+                // }
+                // dd($js_files);
 
-            $js_files = $updatedJsFiles;
+                $js_files = $updatedJsFiles;
             session()->flash('messages','Welcome to home page');
             return view('/home',compact('js_files','public_dir','xmlfile'));
         }else{
@@ -63,7 +68,7 @@ class AuthController extends Controller
     public function saveFile(Request $request)
     {
         $new_content = $request->input('file_content');
-        $filepath=public_path().'/'.$request->filename;
+        $filepath = dirname(base_path()).'\file-saver'.'/'.$request->filename;
         if(!File::exists($filepath)){
             return response()->json([
                 'success' => false,
@@ -77,9 +82,9 @@ class AuthController extends Controller
 
     public function loadFile(Request $request)
     {
-        $filepath=public_path().'/'.$request->file_name;
+        $filepath = dirname(base_path()).'\file-saver'.'/'.$request->file_name;
         $filepaths= public_path('master.xml');
-        if(!File::exists($filepath, $filepaths)){
+        if(!File::exists($filepath)){
             return response()->json([
                 'success' => false,
             ]);
